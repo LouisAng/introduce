@@ -1,47 +1,28 @@
-import { useEffect, useState } from "react";
-import Movie from "../components/Movie";
+import NavScroll from "../components/common/NavScroll";
+import "../assets/css/main.css";
+import "../assets/css/variables.css";
+import mainImg from "../assets/img/hero-carousel/hero-carousel-3.svg";
+import "../assets/vendor/bootstrap-icons/bootstrap-icons.css";
 
 function Home(){
-    
-  const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-  const getMovies = async() => {
-    const json = await (
-      await fetch(
-      `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
-      )
-    ).json();
 
-    setMovies(json.data.movies);
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    getMovies();
-  }, []);
-
-  console.log(movies);
-  return (
-    <div>
-      {loading ? 
-      (
-        <h1>Loading...</h1>
-      ) : (
+    return (
         <div>
-          {movies.map((movie) => (
-            <Movie 
-              key={movie.id}
-              id={movie.id}
-              medium_cover_image={movie.medium_cover_image} 
-              title={movie.title} 
-              summary={movie.summary} 
-              genres={movie.genres} 
-            />
-          ))}
+            <NavScroll/>
+            <section id="hero-animated" className="hero-animated d-flex align-items-center">
+                <div className="container d-flex flex-column justify-content-center align-items-center text-center position-relative" data-aos="zoom-out">
+                    <img src={mainImg} className="img-fluid animated"/>
+                    <h2>Welcome to <span>Ramovi</span></h2>
+                    <p>개발 진행중 입니다.</p>
+                    <div className="d-flex">
+                        <a href="#about" className="btn-get-started scrollto">Get Started</a>
+                        <a href="#" className="glightbox btn-watch-video d-flex align-items-center"><i className="bi bi-play-circle"></i><span>start</span></a>
+                    </div>
+                </div>
+            </section>
+            
         </div>
-      )}
-    </div>
-  );
+    );
 }
 
 export default Home;
